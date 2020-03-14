@@ -1,0 +1,45 @@
+Step 1 - docker run -it --name docker-host --rm --privileged ubuntu:bionic
+Starts a docker container as a play ground for us :)
+Step 2 - cat /etc/issue/
+If you want to see version of ubuntu u r running !
+Step 3 - mkdir /my-new-root
+We are going to make a new root user - which would have only access or visibility 
+to this this folder.
+Step 4 - echo "my super secret thing" >> /my-new-root/secret.txt
+Creates a file - we will use it to ls later
+Step 5 - chroot /my-new-root bash
+Will not work ! 
+Step 6 - mkdir /my-new-root/bin
+               cp /bin/bash /bin/ls /my-new-root/bin/
+               chroot /my-new-root bash
+We copied all the binaries related to bash from bin to new chrooted env.
+Try running - chroot /my-new-root bash
+
+Step 7 - ldd /bin/bash
+Will print out something like this :
+ linux-vdso.so.1 (0x00007fffa89d8000)
+  libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f6fb8a07000)
+  libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f6fb8803000)
+  libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f6fb8412000)
+  /lib64/ld-linux-x86-64.so.2 (0x00007f6fb8f4b000)
+
+Means bash depends on these many dependencies !
+
+Step 8 - mkdir /my-new-root/lib{,64} 
+cp /lib/x86_64-linux-gnu/libtinfo.so.5 /lib/x86_64-linux-gnu/libdl.so.2 /lib/x86_64-linux-gnu/libc.so.6 /my-new-root/lib
+cp /lib64/ld-linux-x86-64.so.2 /my-new-root/lib64
+
+We copied all the necessary binaries for bash 
+
+Step 9 - try again - chroot /my-new-root bash 
+Should work !
+
+Step 10 - try doing ls - we have to do same what we did for bash above.
+
+Step 11 - ldd /bin/ls
+cp /lib/x86_64-linux-gnu/libselinux.so.1 /lib/x86_64-linux-gnu/libpcre.so.3 /lib/x86_64-linux-gnu/libpthread.so.0 /my-new-root/lib
+
+Copying dependent binaries
+
+
+Bravo !!!

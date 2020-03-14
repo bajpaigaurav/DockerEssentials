@@ -1,0 +1,28 @@
+Scenario - 
+
+Namespaces allow you to hide processes from other processes
+If we give each chroot'd environment different sets of namespaces
+
+
+
+Step 1 - chroot inside the container from the chroot toturial
+Step 2 - start another session of the ubunto container by 
+ docker exec -it docker-host bash
+Step 3 - tail -f /my-new-root/secret.txt &
+Starts a new process from the host machine in our case a container.
+Step 4 - copy the pid of #3 and goto chrooted env and kill it!
+Kill <pid>
+Try listing process from the non chrooted env - u will not see tail
+
+Now - lets create a separate namespace and see how things work -
+
+Sudo apt-get update -y
+apt-get install debootstrap -y
+debootstrap --variant=minbase bionic /better-root
+
+unshare --mount --uts --ipc --net --pid --fork --user --map-root-user chroot /better-root bash # this also chroot's for us
+mount -t proc none /proc # process namespace
+mount -t sysfs none /sys # filesystem
+mount -t tmpfs none /tmp # filesystem
+
+Try doing ps now, and killing the process again :)

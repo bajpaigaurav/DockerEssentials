@@ -1,0 +1,5 @@
+Where images are stored ?
+What happens when we hit docker run …. ?
+How to find official images ?
+What are official images ?
+Official images vs normal/custom images

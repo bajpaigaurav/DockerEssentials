@@ -1,0 +1,12 @@
+	1. Push/pull 
+	2. Inspect
+	3. Pause/unpause - pauses or unpauses all the process running inside a container 
+	4. Exec - executes command inside running container 
+	5. Import/export - did earlier 
+	6. History - image layers - docker history node
+	7. Info - docker info - gives system info
+	8. Top - docker top <cont id>
+	9. RM/RMI - removes stopped container or deletes images 
+	10. Logs - docker logs <cont id>
+	11. Restart
+Search - searches a container 

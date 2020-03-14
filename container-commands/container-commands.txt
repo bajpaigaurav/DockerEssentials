@@ -1,0 +1,12 @@
+ docker run alpine
+ docker run alpine ls
+ docker run ubuntu:bionic ls 
+ docker run --detach -it ubuntu:bionic
+ docker run -itd ubuntu:bionic
+ docker ps
+ docker attach <ps>
+ docker kill <ps>
+ docker run -itd --name my-cont ubuntu:bionic
+ docker kill my-cont
+ docker run -itd --rm --name my-cont ubuntu:bionic
+ docker run -it node:12-stretch

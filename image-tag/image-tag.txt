@@ -1,0 +1,5 @@
+What are image tags ?
+How are they important ?
+Image tags and code versions ?
+Images tags and official images ?
+Image tags and CICD ?
